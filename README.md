@@ -55,7 +55,7 @@ jobs:
 
     # This action.
       - name: Enable tutor plugin - Notes
-        uses: openedx-actions/tutor-enable-plugin-notes
+        uses: openedx-actions/tutor-enable-plugin-notes@v0.0.1
         if: ${{ env.ENABLE_NOTES == 'true' }}
         with:
           namespace: openedx-prod
