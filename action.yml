@@ -28,24 +28,27 @@ runs:
 
     # retrieve the MySQL connection parameters that we created in Terraform
     # and then stored in Kubernetes secrets. These include:
-    #   MYSQL_HOST: mysql.app.mrionline.com
+    #   MYSQL_HOST: mysql.app.yourdomain.com
     #   MYSQL_PORT: "3306"
-    #   OPENEDX_MYSQL_USERNAME: openedx
-    #   OPENEDX_MYSQL_PASSWORD: **************
+    #   NOTES_MYSQL_USERNAME: openedx
+    #   NOTES_MYSQL_PASSWORD: **************
     #   MYSQL_ROOT_USERNAME: root
     #   MYSQL_ROOT_PASSWORD: *************
-    #
-    # Also note that we are using jq to add a prefix of "TUTOR_" to each of the parameter names
-    #
-    # see: https://github.com/Medality-Health/openedx_devops/blob/main/terraform/modules/mysql/main.tf
     - name: fetch MySQL configuration from Kubernetes secrets
-      run: |-
-        kubectl get secret mysql-notes -n ${{ inputs.namespace }}  -o json | jq  '.data | map_values(@base64d)' | jq -r 'keys[] as $k | "TUTOR_\($k|ascii_upcase)=\(.[$k])"' >> $GITHUB_ENV
+      id: get-secret
+      uses: openedx-actions/tutor-k8s-get-secret@v0.0.2
+      with:
+        eks-namespace: ${{ inputs.namespace }}
+        eks-secret-name: mysql-notes
+
+    - name: install Notes plugin
+      id: install-notes
       shell: bash
+      run: pip install tutor-notes
 
     - name: Enable the Notes plugin
+      id: config-save
       run: |-
-        pip install tutor-notes
         tutor plugins enable notes
         tutor config save
       shell: bash
