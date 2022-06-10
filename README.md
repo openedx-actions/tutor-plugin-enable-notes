@@ -42,7 +42,7 @@ jobs:
 
       # This action.
       - name: Enable tutor plugin - Notes
-        uses: openedx-actions/tutor-enable-plugin-notes@v0.0.1
+        uses: openedx-actions/tutor-enable-plugin-notes@v0.0.2
         with:
           namespace: openedx-prod
 ```
