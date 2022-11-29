@@ -40,7 +40,7 @@ jobs:
 
       # install and configure tutor and kubectl
       - name: Configure Github workflow environment
-        uses: openedx-actions/tutor-k8s-init@v1.0.0
+        uses: openedx-actions/tutor-k8s-init@v1.0.4
         with:
           namespace: openedx-prod
 
@@ -50,7 +50,7 @@ jobs:
 
       # This action.
       - name: Enable tutor plugin - Notes
-        uses: openedx-actions/tutor-enable-plugin-notes@v1.0.0
+        uses: openedx-actions/tutor-enable-plugin-notes@v1.0.1
         with:
           namespace: openedx-prod
 
