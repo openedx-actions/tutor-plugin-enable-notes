@@ -37,11 +37,13 @@ runs:
     # see: https://github.com/overhangio/tutor-notes
     # The plugin is currently bundled with the binary releases of Tutor.
     # It's only necessary to pip install if you have installed Tutor from source.
+    #
+    # However, since we pip install tutor we apparently *ARE* installing tutor from source.
     #------------------------------------------------------
-    #- name: install Notes plugin
-    #  id: install-notes
-    #  shell: bash
-    #  run: pip install tutor-notes
+    - name: install Notes plugin
+      id: install-notes
+      shell: bash
+      run: pip install tutor-notes
 
     - name: Enable the Notes plugin
       id: config-save
