@@ -11,6 +11,11 @@ inputs:
     description: 'The Kubernetes namespace to which the Open edX platform environment will be deployed. Example: openedx-prod'
     required: true
     type: string
+  tutor-notes-version:
+    description: 'The version of tutor-notes to install'
+    required: false
+    default: latest
+    type: string
 
 runs:
   using: "composite"
@@ -43,7 +48,7 @@ runs:
     - name: install Notes plugin
       id: install-notes
       shell: bash
-      run: pip install tutor-notes
+      run: pip install tutor-notes${{ inputs.tutor-notes-version != 'latest' && format('=={0}', inputs.tutor-notes-version) || '' }}
 
     - name: Enable the Notes plugin
       id: config-save

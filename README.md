@@ -49,10 +49,12 @@ jobs:
       #
 
       # This action.
+      # tutor-notes-version is an optional input
       - name: Enable tutor plugin - Notes
         uses: openedx-actions/tutor-plugin-enable-notes@v1
         with:
           namespace: openedx-prod
+          tutor-notes-version: latest
 
       #
       # ... more steps to deploy your Open edX instance to k8s ...
